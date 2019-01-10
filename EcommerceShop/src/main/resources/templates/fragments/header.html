@@ -1,0 +1,87 @@
+<nav xmlns:th="http://www.thymeleaf.org"
+     xmlns:sec="http://www.thymeleaf.org/extras/spring-security"
+     class="navbar navbar-expand-lg navbar-dark bg-primary" th:fragment="header">
+    <a class="navbar-brand" href="/"> E-Shop </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarColor01"
+            aria-controls="navbarColor01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <!--/*@thymesVar id="currentUser" type="com.piper.valley.auth.CurrentUser"*/-->
+    <div class="collapse navbar-collapse" id="navbarColor01">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item">
+                <a class="nav-link" href="/">
+                    <i class="fas fa-home"></i> Trang chủ</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/">Giới thiệu</a>
+            </li>
+
+            <th:block sec:authorize="isAuthenticated()">
+                <li class="nav-item">
+                    <a class="nav-link" href="/store/add">
+                        <i class="fas fa-plus"></i> Thêm cửa hàng</a>
+                </li>
+            </th:block>
+
+            <li sec:authorize="hasRole('ADMIN')" class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true"
+                   aria-expanded="false"><i class="fas fa-plus"></i> Admin</a>
+                <div class="dropdown-menu">
+                    <a class="dropdown-item" href="/admin/addcompany"><i class="fas fa-plus"> </i> Thêm Công ty</a>
+                    <a class="dropdown-item" href="/admin/addbrand"><i class="fas fa-plus"> </i> Thêm thương hiệu</a>
+                    <a class="dropdown-item" href="/admin/addproduct"><i class="fas fa-plus"> </i> Thêm sản phẩm</a>
+                    <a class="dropdown-item" href="/admin/acceptstores"><i class="fas fa-plus"> </i> Thêm cửa hàng</a>
+                    <a class="dropdown-item" href="/admin/promote"><i class="fas fa-user-plus"> </i> Thêm quyền quản trị </a>
+                    <a class="dropdown-item" href="/admin/demote"><i class="fas fa-user-times"> </i> Xóa quyền quản trị </a>
+                </div>
+            </li>
+
+
+        </ul>
+        <div class="form-inline my-2 my-lg-0">
+            <ul sec:authorize="!isAuthenticated()" class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" href="\login"><i class="fas fa-sign-in-alt"></i> Đăng nhập</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link">|</a>
+                </li>
+
+                <li class="nav-item">
+                    <a class="nav-link" href="\register"><i class="fas fa-user-plus"></i> Đăng kí</a>
+                </li>
+            </ul>
+
+            <ul sec:authorize="isAuthenticated()" class="navbar-nav mr-auto">
+                <li class="nav-item dropdown">
+                    <a class="nav-link dropdown-toggle font-weight-bold" data-toggle="dropdown"  role="button" aria-haspopup="true"
+                       aria-expanded="false" th:text="${currentUser.username}"><i class="fas fa-user"></i></a>
+                    <div class="dropdown-menu">
+                        <h6 class="dropdown-header">Profile Actions</h6>
+                        <a class="dropdown-item" href="/user/profile"><i class="fas fa-fw fa-user"> </i> Xem hồ sơ </a>
+                        <th:block sec:authorize="hasAnyRole('ADMIN', 'STORE_OWNER')">
+                        <div class="dropdown-divider"></div>
+                        <h6 class="dropdown-header">Administrative Actions</h6>
+                        </th:block>
+                        <a sec:authorize="hasRole('STORE_OWNER')" class="dropdown-item" href="/user/storeowner/dashbaord"><i class="fas fa-fw fa-tachometer-alt"> </i> Trình điều khiển cửa hàng</a>
+                        <a sec:authorize="hasRole('ADMIN')" class="dropdown-item" href="/admin/dashbaord"><i class="fas fa-fw fa-tachometer-alt"> </i> Trình điều khiển quản trị</a>
+                        <div class="dropdown-divider"></div>
+                        <form id="logoutForm" method="post" action="/logout">
+                            <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
+                            <a onclick="logoutForm.submit();" class="dropdown-item" href="#" style="cursor: pointer"><i
+                                    class="fas fa-fw fa-sign-in-alt"></i> Đăng xuất</a>
+                        </form>
+                    </div>
+                </li>
+                <li class="nav-item">
+                        <a class="nav-link" href="/user/shoppingcart">
+                            <i class="fas fa-shopping-cart"></i> Giỏ hàng <span th:text="${currentUser.ordersCount}" class="badge badge-secondary badge-pill">  </span>
+                        </a>
+                </li>
+            </ul>
+        </div>
+    </div>
+</nav>

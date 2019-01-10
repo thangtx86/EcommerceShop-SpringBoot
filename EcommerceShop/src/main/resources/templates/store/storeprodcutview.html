@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorator="layouts/default">
+<head>
+	<meta charset="utf-8"/>
+	<th:block layout:fragment="customStyle">
+		<title th:text="${product.name}"></title>
+		<!--El Custom Styles le el 7eta deh-->
+		<link rel="stylesheet" th:href="@{/css/home.css}"/>
+		<link rel="stylesheet" th:href="@{/css/storeproductview.css}"/>
+	</th:block>
+</head>
+
+<!-- Body !-->
+<body layout:fragment="content">
+<!--Content Goes Here!-->
+<div class="container">
+	<div class="card">
+		<div class="container-fluid">
+			<div class="wrapper row">
+				<div class="nopadding text-center col-md-5">
+                    <br/>
+                    <img th:src="@{/img/400x400.png}" class="img-fluid rounded img-thumbnail"/>
+				</div>
+				<div class="col-md-7">
+					<br/>
+					<br/>
+					<h3 class="product-title text-capitalize noheaderpad" th:text="${product.name}"> </h3>
+					<p class="product-description" th:text="${product.description}"> </p>
+					<hr/>
+                    <h5>Thông tin:</h5>
+					<h6> <span class="text-muted">Sản phẩm chung: </span> <a th:href="@{/product/view/{id}(id = ${product.product.id})}" th:text="${product.product.name}"> </a> </h6>
+					<h6> <span class="text-muted">Brand:  </span>  <span  th:text="${product.product.brand.name}"> </span></h6>
+					<h6> <span class="text-muted">Công ty:</span> <span th:text="${product.product.company.name}"> </span> </h6>
+					<h6> <span class="text-muted">Cửa hàng:</span>  <a th:href="@{/store/view/{id}(id = ${product.store.id})}" th:text="${product.store.name}"> </a> </h6>
+					<hr/>
+					<div th:if="${physicalproduct!=null}">
+                        <h5>Kích thước sản phẩm</h5>
+						<h6><small> <span class="text-muted"><strong>CHiều dài: </strong></span><span th:text="${physicalproduct.getLength()}"></span> </small></h6>
+						<h6><small> <span class="text-muted"><strong>Chiều rộng: </strong></span><span th:text="${physicalproduct.getWidth()}"></span></small></h6>
+						<h6><small> <span class="text-muted"><strong>Chiều cao: </strong></span><span th:text="${physicalproduct.getHeight()}"></span></small></h6>
+						<h6><small> <span class="text-muted"><strong>Trọng lượng: </strong></span><span th:text="${physicalproduct.getWeight()}"></span></small></h6>
+						<hr/>
+					</div>
+					<h5 class="price">Giá: <i class="fas fa-dollar-sign"></i><span th:text="${product.price}"></span></h5>
+                    <div class="action">
+						<a class="btn btn-primary" th:href="@{/store/view/{id}(id = ${product.store.id})}"><i class="fas fa-list"></i> Xem trong cửa hàng </a>
+						<a class="btn btn-success" th:href="@{/store/products/{id}/buy(id = ${product.id})}"><i class="fas fa-shopping-cart"></i> Thêm vào giỏ hàng </a>
+					</div>
+                    <br/>
+                    <br/>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!--El Custom Scripts le el 7eta deh-->
+<th:block layout:fragment="customScripts">
+
+	<!--<ul class="list-group">
+		<li class="list-group-item text-muted">Product's Info</li>
+		<li class="list-group-item text-left"><span><strong>Name: </strong></span><span th:text="${product.name}"></span></li>
+		<li class="list-group-item text-left"><span><strong>Description: </strong></span><span th:text="${product.description}"></span></li>
+		<li class="list-group-item text-left"><span><strong>Brand: </strong></span><span th:text="${product.getProduct().brand.name}"></span></li>
+		<li class="list-group-item text-left"><span><strong>Company: </strong></span><span th:text="${product.getProduct().company.name}"></span></li>
+
+		<li class="list-group-item text-left"><span><strong>Parent Product: </strong></span><a th:href="@{/product/view/{id}(id = ${product.product.id})}"
+																							   th:text="${product.product.name}">-</a></li>
+		<li class="list-group-item text-left"><span><strong>Price: </strong></span><span th:text="${product.getPrice()}"></span></li>
+		<div class="col-lg-12 buttonpad">
+			<a class="col-lg-4 btn btn-primary float-left" th:href="@{/store/{id}(id = ${product.store.id})}"><i class="fas fa-list"></i> View Store </a>
+			<a class="col-lg-4 btn btn-success float-right" th:href="@{/store/products/{id}/buy(id = ${product.id})}"><i class="fas fa-shopping-cart"></i> Buy </a>
+		</div>
+	</ul>-->
+
+</th:block>
+</body>
+</html>
