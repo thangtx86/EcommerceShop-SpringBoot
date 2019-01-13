@@ -86,12 +86,7 @@ public class UserController {
 	//@PreAuthorize("hasAuthority('ADMIN')")
 	@RequestMapping(value = "/register", method = RequestMethod.POST,produces = "text/plain;charset=UTF-8")
 	public ModelAndView register(@Valid @ModelAttribute("registerForm") UserCreateForm registerForm, BindingResult bindingResult, HttpServletRequest request, RedirectAttributes redirectAttributes) {
-		try {
-			request.setCharacterEncoding("utf-8");
-		} catch (UnsupportedEncodingException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-		}
+		
 		if (bindingResult.hasErrors())
 			return new ModelAndView("user/register", "registerForm", registerForm);
 	

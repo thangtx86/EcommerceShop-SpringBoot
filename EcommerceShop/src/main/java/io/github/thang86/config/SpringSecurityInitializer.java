@@ -3,9 +3,11 @@ package io.github.thang86.config;
 import javax.servlet.FilterRegistration;
 import javax.servlet.ServletContext;
 
+import org.springframework.context.annotation.Bean;
 import org.springframework.core.annotation.Order;
 import org.springframework.security.web.context.AbstractSecurityWebApplicationInitializer;
 import org.springframework.web.filter.CharacterEncodingFilter;
+import org.thymeleaf.spring4.view.ThymeleafViewResolver;
 
 /**
 *  SpringSecurityInitializer.java
@@ -30,5 +32,5 @@ public class SpringSecurityInitializer extends AbstractSecurityWebApplicationIni
         characterEncodingFilter.setInitParameter("forceEncoding", "true");
         characterEncodingFilter.addMappingForUrlPatterns(null, false, "/*");
     }
-
+  
 }
