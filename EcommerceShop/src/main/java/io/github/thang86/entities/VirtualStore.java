@@ -30,7 +30,6 @@ public class VirtualStore extends Store {
 
 	@Override
 	public List<StoreProduct> getStoreProducts() {
-		//TODO Check that they're all Virtual
 		return storeProducts;
 	}
 
@@ -46,7 +45,6 @@ public class VirtualStore extends Store {
 
 	@Override
 	public boolean setStoreProducts(List<StoreProduct> storeProducts) {
-		//TODO check that they're all virtual products
 		this.storeProducts = storeProducts;
 		return true;
 	}

@@ -46,26 +46,26 @@ public class FinishOrderValidator implements Validator {
 	public void validate(Object target, Errors errors) {
 		FinishOrderForm finishOrderForm = (FinishOrderForm) target;
 
-		//Avoid Querying DB if there is an error already.
+		
 		if(errors.hasErrors())
 			return;
 
 		Optional<Order> orderOptional = orderService.getOrderById(finishOrderForm.getOrderId());
 
 		if(!orderOptional.isPresent()) {
-			errors.rejectValue("orderId", "NotValid", "Order doesn't exist!");
+			errors.rejectValue("orderId", "NotValid", "Đơn hàng không tồn tại!");
 			return;
 		}
 
 		Order order = orderOptional.get();
 		if(order.getOrderStatus() == OrderStatus.DELIVERED || order.getOrderStatus() == OrderStatus.UNPROCESSED){
-			errors.rejectValue("orderId", "NotValid", "Un-valid Order");
+			errors.rejectValue("orderId", "NotValid", "Đơn hàng không hợp lệ");
 			return;
 		}
 
 		CurrentUser currentUser = AuthUtil.getCurrentUser();
 		if(!authService.canAccessStore(order.getStoreProduct().getStore(), currentUser)){
-			errors.rejectValue("orderId", "msg.NotAuthorized", "You're not Authorized to do that!");
+			errors.rejectValue("orderId", "msg.NotAuthorized", "Bạn không được ủy quyền để làm điều này!");
 		}
 
 	}

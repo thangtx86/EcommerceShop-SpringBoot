@@ -27,7 +27,7 @@ public class HomePageViewModel {
     @Autowired
     StoreProductService storeProductService;
 
-    //Getting all products
+   
     public HashMap<String, Object> create() {
         HashMap<String, Object> model = new HashMap<>();
         Collection<StoreProduct> products=storeProductService.getTop30();

@@ -41,15 +41,15 @@ public class StoreOwnerStatisticsViewModel {
 	@Autowired
 	OrderRepository orderRepository;
 
-	//Get User Stores.
+
 	public HashMap<String, Object> create(Long Id) {
 		HashMap<String, Object> model = new HashMap<>();
 		Collection<Store> Accepted = storeService.getAllAcceptedUserStores(Id);
 
-		//statistics charts data
+		
 		Collection<String> Names = Accepted.stream().map(Store::getName).collect(Collectors.toList());
 
-		//Collection<Integer> ProductsCount = Accepted.stream().map(x -> x.getStoreProducts().size()).collect(Collectors.toList());
+	
 		Collection<Integer> ProductsCount = Accepted.stream().map(x -> x.getStoreProducts().stream().map(StoreProduct::getStoreViews).reduce(0, (a, b) -> a + b)).collect(Collectors.toList());
 
 		List<List<Integer>> perWeekStore = new ArrayList<>();

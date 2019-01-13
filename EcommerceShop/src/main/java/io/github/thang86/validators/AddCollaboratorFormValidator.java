@@ -49,7 +49,6 @@ public class AddCollaboratorFormValidator implements Validator {
     public void validate(Object target, Errors errors) {
         AddStoreCollaboratorForm form = (AddStoreCollaboratorForm) target;
 
-        //Avoid Querying DB if there is an error already.
         if(errors.hasErrors())
             return;
 

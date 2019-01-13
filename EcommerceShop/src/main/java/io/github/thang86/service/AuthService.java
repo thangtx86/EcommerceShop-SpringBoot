@@ -24,6 +24,5 @@ public interface AuthService {
 
 	boolean canViewStore(Store store, CurrentUser currentUser);
 
-	//Is a Collaborator or an actual Store Owner.
 	boolean canAccessStore(Store store, CurrentUser currentUser);
 }

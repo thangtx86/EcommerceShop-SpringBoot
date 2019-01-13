@@ -23,12 +23,12 @@ import java.util.HashMap;
 @Component
 public class StoreProductViewModel {
 
-	//Check if Product is Physical/Virtual
+	
 	public HashMap<String, Object> create(StoreProduct storeProduct) {
 		HashMap<String, Object> model = new HashMap<>();
 		model.put("product"  , storeProduct);
 
-		//We should use attributes instead of passing a whole obj, but mehh... msh 3ayz a8yar el view bt3at Refaie.
+		
 		PhysicalProduct physicalProduct = null;
 		if(storeProduct.getProduct() instanceof PhysicalProduct)
 			physicalProduct =  (PhysicalProduct) storeProduct.getProduct();

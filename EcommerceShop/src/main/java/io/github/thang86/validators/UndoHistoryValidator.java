@@ -46,14 +46,14 @@ public class UndoHistoryValidator implements Validator {
 	public void validate(Object target, Errors errors) {
 		UndoHistoryForm undoHistoryForm = (UndoHistoryForm) target;
 
-		//Avoid Querying DB if there is an error already.
+		
 		if(errors.hasErrors())
 			return;
 
 		Optional<StoreHistory> storeHistoryOptional = storeHistoryService.getById(undoHistoryForm.getId());
 
 		if(!storeHistoryOptional.isPresent()) {
-			errors.rejectValue("Id", "NotValid", "History doesn't exist!");
+			errors.rejectValue("Id", "NotValid", "Lịch sử không tồn tại!");
 			return;
 		}
 
@@ -66,7 +66,7 @@ public class UndoHistoryValidator implements Validator {
 
 		CurrentUser currentUser = AuthUtil.getCurrentUser();
 		if(!authService.canAccessStore(storeHistory.getStore(), currentUser)){
-			errors.rejectValue("Id", "msg.NotAuthorized", "You're not Authorized to do that!");
+			errors.rejectValue("Id", "msg.NotAuthorized", "Bạn không được ủy quền để làm điều này!");
 		}
 
 	}

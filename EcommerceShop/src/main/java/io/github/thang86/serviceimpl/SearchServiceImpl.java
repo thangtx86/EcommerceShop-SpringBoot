@@ -51,7 +51,7 @@ public class SearchServiceImpl implements SearchService {
 			List<StoreProduct> storeProducts = storeProductSearch(queryString, 150);
 			List<Store> stores = storeSearch(queryString, 150);
 
-			//T(again this is a  temp fix for prototyping, TODO actual limit shouldn't get the data from the DB. (Fix this when query limiting TODO is done)
+		
 			return new SearchResult(queryString,
 				storeProducts.subList(0, min(10, storeProducts.size())),
 				stores.subList(0, min(10, stores.size()))
@@ -66,42 +66,34 @@ public class SearchServiceImpl implements SearchService {
 				fullTextEntityManager.getSearchFactory()
 						.buildQueryBuilder().forEntity(StoreProduct.class).get();
 
-		// query by keywords
 		Query query;
 		try {
 			query = queryBuilder
 					.keyword()
 					.fuzzy()
-					.withThreshold(0.4f) //default = 0.5
-					.withPrefixLength(1) //At least first one to be correct.
+					.withThreshold(0.4f) 
+					.withPrefixLength(1)
 					.onFields("name", "description", "product.name")
-					.boostedTo(5)   //give above more weight
+					.boostedTo(5)   
 					.andField("product.brand.name")
 					.andField("product.company.name")
 					.andField("store.name")
 					.matching(queryString)
 					.createQuery();
 		} catch (EmptyQueryException exception) {
-			// return empty result if EmptyQuery occurred
-			/* This exception occurs when users input is only consisting of stopwords (words ignored from search),
-			   stopwords are ignored which leads to EmptyQueryException.
-		    */
+			
 			return new ArrayList<>();
 		}
 
 
-		// wrap Lucene query in an Hibernate Query object
 		FullTextQuery jpaQuery =
 				fullTextEntityManager.createFullTextQuery(query, StoreProduct.class);
 
 		jpaQuery.limitExecutionTimeTo(maxTimeLimit, TimeUnit.MILLISECONDS);
 
-		//TODO (Set a limit for number of result per query, setMax isn't included in jpa, search for alternative.)
 
-		// execute search and return results (sorted by relevance as default)
 		List<StoreProduct> results = jpaQuery.getResultList();
 
-		//TODO This doesn't solve the above TODO, it is just for the prototyping, (actual limit shouldn't get the data from the DB)
 		return results.subList(0, min(results.size(),50));
 	}
 
@@ -113,38 +105,27 @@ public class SearchServiceImpl implements SearchService {
 				fullTextEntityManager.getSearchFactory()
 						.buildQueryBuilder().forEntity(Store.class).get();
 
-		// query by keywords
 		Query query;
 		try {
 			query = queryBuilder
 					.keyword()
 					.fuzzy()
-					//.withThreshold(0.8f) default = 0.5
 					.withPrefixLength(1)
 					.onFields("name")
 					.matching(queryString)
 					.createQuery();
 		} catch (EmptyQueryException exception) {
-			// return empty result if EmptyQuery occurred
-				/* This exception occurs when users input is only consisting of stopwords (words ignored from search),
-				   stopwords are ignored which leads to EmptyQueryException.
-			    */
+			
 			return new ArrayList<>();
 		}
 
-		// wrap Lucene query in an Hibernate Query object
 		FullTextQuery jpaQuery =
 				fullTextEntityManager.createFullTextQuery(query, Store.class);
 
 		jpaQuery.limitExecutionTimeTo(maxTimeLimit, TimeUnit.MILLISECONDS);
 
-		//TODO Filter unaccepted stores.
 
-		//TODO (Set a limit for number of result per query, setMax isn't included in jpa, search for alternative.)
-
-		// execute search and return results (sorted by relevance as default)
 		List results = jpaQuery.getResultList();
 
-		//TODO This doesn't solve the above TODO, it is just for the prototyping, (actual limit shouldn't get the data from the DB)
 		return results.subList(0, min(results.size(),50));	}
 }

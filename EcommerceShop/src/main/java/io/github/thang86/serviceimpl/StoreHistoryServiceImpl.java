@@ -125,7 +125,6 @@ public class StoreHistoryServiceImpl implements StoreHistoryService {
 			return false;
 
 		if(storeProductHistory.getType() == StoreHistoryType.DELETE) {
-			//TODO make this better (via shadow-deleting to preserve orders, etc)
 			storeService.addProductToStore(
 					new AddStoreProductForm(
 							storeProductHistory.getStoreId(),

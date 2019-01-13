@@ -84,7 +84,6 @@ public class ProductServiceImpl implements ProductService {
 			product = virtualProduct;
 		}
 
-		//Common Attributes
 		product.setBrand(brandRepository.findOneById(productForm.getBrandId()).get());
 		product.setCompany(companyRepository.findOneById(productForm.getCompanyId()).get());
 		product.setName(productForm.getName());

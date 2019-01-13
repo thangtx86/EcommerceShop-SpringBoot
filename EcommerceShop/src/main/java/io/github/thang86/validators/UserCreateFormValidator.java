@@ -47,20 +47,16 @@ public class UserCreateFormValidator implements Validator {
 	}
 
 	private void validateUsername(Errors errors, UserCreateForm form) {
-		//This to avoid querying using not valid or (and especially empty value "" ),
-		// empty value cause findOne to return more than one element causing an exception which is so stupid :'D, I hate this.
+		
 		if(errors.hasFieldErrors("username"))
 			return;
 
-		//Actual Validation
 		if (userRepository.findOneByUsername(form.getUsername()).isPresent()) {
 			errors.rejectValue("username", "msg.DuplicateUsername");
 		}
 	}
 
 	private void validateEmail(Errors errors, UserCreateForm form) {
-		//This to avoid querying using not valid or (and especially empty value "" ),
-		// empty value cause findOne to return more than one element causing an exception which is so stupid :'D, I hate this.
 		if(errors.hasFieldErrors("email"))
 			return;
 

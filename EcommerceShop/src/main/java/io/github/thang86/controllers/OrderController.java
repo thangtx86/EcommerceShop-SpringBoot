@@ -37,7 +37,7 @@ import javax.validation.Valid;
 
 @Controller
 public class OrderController {
-	/////////////////////////*  SERVICES, REPOSITORIES AND VALIDATORS SECTION  */////////////////////////////
+
 	@Autowired
 	private OrderService orderService;
 

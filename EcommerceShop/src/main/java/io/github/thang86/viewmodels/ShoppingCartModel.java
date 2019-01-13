@@ -57,7 +57,7 @@ public class ShoppingCartModel {
 			String msg = "";
             if(order.getQuantity() > 1) {
                 currentOrderTotal -= currentOrderTotal * 0.1f;
-                msg = "10% Discount for buying more than 2 items!";
+                msg = "Giảm 10% khi mua hai sản phẩm trở lên!";
             }
 
 	        perOrderMsgs.put(order.getId(), msg);
@@ -71,7 +71,7 @@ public class ShoppingCartModel {
         if(user.getRoles().contains(Role.STORE_OWNER)
 		        && storeService.getAllAcceptedUserStores(id).size() > 0) {
             total -= total * 0.1f;
-            msgs.add("Total checkout 10% Discount for being a store owner!");
+            msgs.add("Giảm 10% tổng thanh toán khi bạn là chủ cửa hàng!");
         }
 
         Integer oldOrdersCount = orderService.getOrderCountByUser(id, OrderStatus.DELIVERED)
@@ -80,7 +80,7 @@ public class ShoppingCartModel {
 
         if(oldOrdersCount == 0 ) {
             total -= total * 0.05f;
-            msgs.add("Total checkout 5% Discount for your first order!");
+            msgs.add("Giảm giá 5% cho đơn hàng đầu tiên của bạn !");
         }
 
         model.put("orders",orders);

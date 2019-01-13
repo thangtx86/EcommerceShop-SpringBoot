@@ -42,7 +42,7 @@ public class DemoteAdminFormValidator implements Validator {
 	@Override
 	public void validate(Object target, Errors errors) {
 		DemoteAdminForm form = (DemoteAdminForm) target;
-		//Avoid Querying DB if there is an error already.
+	
 		if (errors.hasErrors())
 			return;
 
@@ -67,20 +67,19 @@ public class DemoteAdminFormValidator implements Validator {
 		}
 
 		if (user.getAdmin().getSuperior().getId() != currentUser.getId()) {
-			//Query your way till head.
+			
 			Admin admin = user.getAdmin().getSuperior();
 			while(true)
 			{
 				if(admin.getId() == currentUser.getId())
 					break;
 
-				//finished the line.
+				
 				else if(Objects.equals(admin.getId(), admin.getSuperior().getId())) {
 					errors.rejectValue("username", "msg.NotYourSub");
 					break;
 				}
 
-				//iterate
 				admin = admin.getSuperior();
 			}
 		}

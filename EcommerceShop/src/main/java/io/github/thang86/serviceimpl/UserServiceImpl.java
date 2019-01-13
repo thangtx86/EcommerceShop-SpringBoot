@@ -85,36 +85,29 @@ public class UserServiceImpl implements UserService {
 
 	@Override
 	public User promoteAdmin(PromoteAdminForm form, User superior) {
-		//.get directly as form is validated.
 		User user = getUserByUsername(form.getUsername()).get();
 
 		if (!user.getRoles().contains(Role.ADMIN))
 			user.addRole(Role.ADMIN);
 
-		//TODO to be removed.
-		//corner case for database created admins //TODO remove this when initial admin will be added automatically.
 		if(superior.getAdmin() == null) {
 			superior.setAdmin(new Admin());
 			superior.getAdmin().setUser(superior);
 			superior.getAdmin().setSuperior(superior.getAdmin());
 			superior = userRepository.save(superior);
 		}
-		///////////////////////////////////////////////////////
 
-		//First Time Admin (create Admin row in table)
 		if (user.getAdmin() == null) {
 			user.setAdmin(new Admin());
 			user.getAdmin().setUser(user);
 			user.getAdmin().setSuperior(superior.getAdmin());
 		}
 
-		//save user
 		return userRepository.save(user);
 	}
 
 	@Override
 	public User demoteAdmin(DemoteAdminForm form, User superior) {
-		//.get directly as form is validated.
 		User user = getUserByUsername(form.getUsername()).get();
 
 
@@ -122,9 +115,7 @@ public class UserServiceImpl implements UserService {
 			user.removeRole(Role.ADMIN);
 
 
-		//We won't remove relation to preserve the chain. (we can make this better later (agile baby))
 
-		//save user
 		return userRepository.save(user);
 	}
 }

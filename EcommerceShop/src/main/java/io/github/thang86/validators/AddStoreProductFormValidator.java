@@ -52,7 +52,6 @@ public class AddStoreProductFormValidator implements Validator {
 	public void validate(Object target, Errors errors) {
 		AddStoreProductForm form = (AddStoreProductForm) target;
 
-		//Avoid Querying DB if there is an error already.
 		if(errors.hasErrors())
 			return;
 
@@ -78,7 +77,7 @@ public class AddStoreProductFormValidator implements Validator {
 		if(store.getStatus() != StoreStatus.ACCEPTED)
 			errors.rejectValue("storeId","msg.AcceptedStore");
 
-		//Check Type
+		//Kiem tra Type
 		if(store instanceof VirtualStore && product instanceof PhysicalProduct)
 			errors.rejectValue("productId", "msg.VirtualStoreProducts");
 

@@ -36,7 +36,7 @@ public class StoreOrdersViewModel {
 	OrderService orderService;
 
 
-	//Get Orders per store.
+
 	public HashMap<String, Object> create(Long Id) {
 		HashMap<String, Object> model = new HashMap<>();
 		Collection<Store> Accepted = storeService.getAllAcceptedUserStores(Id);

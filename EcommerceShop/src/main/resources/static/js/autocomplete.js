@@ -17,7 +17,7 @@ $(document).ready(function () {
         }
     });
 
-    /*Description trimming helper function 3shan t7ot ... law el desc tawel */
+   
     Handlebars.registerHelper('desc', function(passedString, startstring, endstring) {
         if(passedString){
             if(!startstring) startstring=0;

@@ -129,26 +129,21 @@ public class StoreServiceImpl implements StoreService {
 		else
 			store = new VirtualStore();
 
-		//Common Attributes
 		store.setStatus(StoreStatus.PENDING);
 		store.setName(form.getName());
 
-		//Add New Role to User (We query as session user can be outdated)
 		User user = userRepository.findOne(sessionUser.getId());
 
 		if(!user.getRoles().contains(Role.STORE_OWNER))
 			user.addRole(Role.STORE_OWNER);
 
-		//First Time StoreOwner (create storeowner row in table)
 		if(user.getStoreOwner() == null){
 			user.setStoreOwner(new StoreOwner());
 			user.getStoreOwner().setUser(user);
 		}
 
-		//save user
 		user = userRepository.save(user);
 
-		//Link Store with the StoreOwner of LoggedUser(Delegation)
 		store.setStoreOwner(user.getStoreOwner());
 
 		return storeRepository.save(store);
@@ -159,7 +154,6 @@ public class StoreServiceImpl implements StoreService {
 		Optional<Product> productOptional = productService.getProductById(form.getProductId());
 		Optional<Store>   storeOptional   = this.getStoreById(form.getStoreId());
 
-		//Don't have to check for Presence (validator should've checked for their existence)
 		Product product = productOptional.get();
 		Store store = storeOptional.get();
 
@@ -170,17 +164,14 @@ public class StoreServiceImpl implements StoreService {
 		storeProduct.setProduct(product);
 		storeProduct.setStore(store);
 
-		//add to store
 		store.addStoreProduct(storeProduct);
 
-		//Hibernate Bugs ? :"D
 		Store save = storeRepository.save(store);
 
-		//Save History
 		StoreProductHistory storeProductHistory = new StoreProductHistory(
 				user,
 				store,
-				storeProduct.getName() + " was added.",
+				storeProduct.getName() + " đã được thêm.",
 				new Date(),
 				StoreHistoryType.ADD,
 				storeProduct.getStore().getId(),
@@ -209,11 +200,10 @@ public class StoreServiceImpl implements StoreService {
 
 		storeProductService.remove(storeProduct);
 
-		//Save History piece
 		StoreProductHistory storeProductHistory = new StoreProductHistory(
 				user,
 				storeProduct.getStore(),
-				storeProduct.getName() + " was remove from the store.",
+				storeProduct.getName() + " đã bị xóa khỏi của hàng.",
 				new Date(),
 				StoreHistoryType.DELETE,
 				storeProduct.getStore().getId(),
@@ -237,11 +227,9 @@ public class StoreServiceImpl implements StoreService {
 		User collaborator = userOptional.get();
 
 
-		//Add New Role to User (We query as session user can be outdated)
 		if(!collaborator.getRoles().contains(Role.STORE_OWNER))
 			collaborator.addRole(Role.STORE_OWNER);
 
-		//First Time StoreOwner (create storeowner row in table)
 		if(collaborator.getStoreOwner() == null){
 			collaborator.setStoreOwner(new StoreOwner());
 			collaborator.getStoreOwner().setUser(collaborator);
@@ -251,14 +239,13 @@ public class StoreServiceImpl implements StoreService {
 		collaborator = userRepository.save(collaborator);
 		store.addCollaborator(collaborator.getStoreOwner());
 
-		//save user
+
 		store = storeRepository.save(store);
 
-		//save history
 		StoreCollabHistory storeCollabHistory = new StoreCollabHistory(
 				new User(userId),
 				store,
-				"Collaborator: " + collaborator.getName() + " added to the store!",
+				"Cộng tác viên : " + collaborator.getName() + " đã được thêm!",
 				new Date(),
 				StoreHistoryType.ADD,
 				collaborator
@@ -277,7 +264,7 @@ public class StoreServiceImpl implements StoreService {
 		User collaborator = userOptional.get();
 		collaborator.getStoreOwner().removeStCollaberatedStore(store);
 
-		//Add New Role to User (We query as session user can be outdated)
+
 		if(collaborator.getStoreOwner().getCollaboratedStores().isEmpty()&&collaborator.getStoreOwner().getStores().isEmpty())
 			collaborator.removeRole(Role.STORE_OWNER);
 
@@ -289,11 +276,11 @@ public class StoreServiceImpl implements StoreService {
 		collaborator = userRepository.save(collaborator);
 		store = storeRepository.save(store);
 
-		//save history
+	
 		StoreCollabHistory storeCollabHistory = new StoreCollabHistory(
 				new User(userId),
 				store,
-				"Collaborator: " + collaborator.getName() + " removed from the store!",
+				"Cộng tác viên : " + collaborator.getName() + " đã được xóa vai trò!",
 				new Date(),
 				StoreHistoryType.DELETE,
 				collaborator

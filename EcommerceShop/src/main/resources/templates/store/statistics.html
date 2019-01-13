@@ -4,7 +4,7 @@
       layout:decorator="layouts/default">
 <head>
     <meta charset="utf-8"/>
-    <title>Stores Statistics</title>
+    <title>Thống kê của cửa hàng</title>
     <th:block layout:fragment="customStyle">
     </th:block>
 </head>
@@ -70,7 +70,7 @@
                                 <th>#</th>
                                 <th>Image</th>
                                 <th>Tên</th>
-                                <th>Chú thích</th>
+                                <th>Mô tả</th>
                                 <th>Số lượt xem</th>
                                 <th> Sản phẩm</th>
                                 <th>Tất cả lượt xem</th>
@@ -125,7 +125,7 @@
                 },
                 title: {
                     display: true,
-                    text: 'Total Views per Store',
+                    text: 'Tổng lượt xem trên mỗi cửa hàng.',
                     fontColor: 'rgba(150, 150, 150,1)'
                 },
                 scales: {
@@ -162,7 +162,7 @@
             type: 'line',
             data: lineData,
             display: true,
-            text: 'Orders Per-store over last week.',
+            text: 'Đơn hàng của mỗi cửa hàng trong tuần.',
             fontColor: 'rgba(150, 150, 150,1)'
         };
 

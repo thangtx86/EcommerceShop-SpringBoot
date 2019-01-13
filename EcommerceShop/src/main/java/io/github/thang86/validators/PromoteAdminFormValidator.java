@@ -45,7 +45,6 @@ public class PromoteAdminFormValidator implements Validator {
     public void validate(Object target, Errors errors) {
         PromoteAdminForm form = (PromoteAdminForm) target;
 
-        //Avoid Querying DB if there is an error already.
         if(errors.hasErrors())
             return;
 

@@ -15,6 +15,8 @@
 	<description>ShopEcommerce Boot</description>
 
 	<properties>
+		<maven.compiler.target>1.8</maven.compiler.target>
+        <maven.compiler.source>1.8</maven.compiler.source>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
 		<java.version>1.8</java.version>
@@ -44,8 +46,6 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-test</artifactId>
-
-
             <scope>test</scope>
         </dependency>
 
@@ -58,6 +58,7 @@
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-data-jpa</artifactId>
         </dependency>
+	        
 
         <dependency>
             <groupId>mysql</groupId>
@@ -76,6 +77,8 @@
             <version>2.0.4.RELEASE</version>
             <scope>test</scope>
         </dependency>
+        
+        
 
         <dependency>
             <groupId>org.hibernate</groupId>
@@ -83,12 +86,7 @@
             <version>4.5.1.Final</version>
         </dependency>
 
-        <dependency>
-            <groupId>com.h2database</groupId>
-            <artifactId>h2</artifactId>
-            <scope>test</scope>
-            <version>1.4.194</version>
-        </dependency>
+       
 
     </dependencies>
 
@@ -98,7 +96,7 @@
             <plugin>
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
-                <executions>
+                 <executions>
                     <execution>
                         <goals>
                             <goal>repackage</goal>
@@ -112,7 +110,7 @@
                             </additionalProperties>
                         </configuration>
                     </execution>
-                </executions>
+                </executions> 
             </plugin>
         </plugins>
     </build>

@@ -76,7 +76,6 @@ public class OrderServiceImpl implements OrderService {
         if(orders.isEmpty())
             return 0;
 
-        //Transactions goes here but we;re simulating so that's it :'D
 
         return changeStatus(orders).size();
 	}

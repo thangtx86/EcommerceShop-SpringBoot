@@ -1,12 +1,28 @@
 package io.github.thang86.entities;
 
 
-import io.github.thang86.enums.Role;
-
-import javax.persistence.*;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
+import javax.persistence.PrimaryKeyJoinColumn;
+import javax.persistence.Table;
+
+import io.github.thang86.enums.Role;
 
 /**
 *  User.java
@@ -24,7 +40,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "user")
-public class User {
+public class User  {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", nullable = false, updatable = false)
@@ -42,8 +58,8 @@ public class User {
 	@Column(name = "name", nullable = false, unique = false)
 	private String name;
 
-    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "user", orphanRemoval = true) //Setting that to true means upon deleting a user, his history is deleted.
-    protected List<StoreHistory> history;                                               //Facebook wouldn't be proud.
+    @OneToMany(cascade = CascadeType.PERSIST, mappedBy = "user", orphanRemoval = true) 
+    protected List<StoreHistory> history;                                              
 
 
     @ElementCollection(targetClass = Role.class, fetch = FetchType.EAGER)

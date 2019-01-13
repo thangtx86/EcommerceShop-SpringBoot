@@ -30,7 +30,6 @@ public class AddProductViewModel {
 	@Autowired
 	CompanyService companyService;
 
-	//Query for Brands/Companies using the view model!.
 	public HashMap<String, Object> create(AddProductForm form) {
 		HashMap<String, Object> model = new HashMap<>();
 		model.put("addProductForm"  , form);

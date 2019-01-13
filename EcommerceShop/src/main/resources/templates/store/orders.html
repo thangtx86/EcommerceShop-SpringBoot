@@ -40,10 +40,10 @@
                                 <tr>
                                     <th>#</th>
                                     <th>Image</th>
-                                    <th>Name</th>
-                                    <th>Quantity</th>
-                                    <th>Address</th>
-                                    <th>Processed Date</th>
+                                    <th>Tên sản phẩm</th>
+                                    <th>Số lượng</th>
+                                    <th>Địa chỉ</th>
+                                    <th>Ngày xử lí</th>
                                     <th></th>
                                 </tr>
                                 </thead>
@@ -60,7 +60,7 @@
                                         <form method="post" autocomplete="on"  action="/order/finish/">
                                             <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}"/>
                                             <input type="hidden" th:name="orderId" th:value="${order.id}"/>
-                                            <button type="submit" class="btn btn-sm btn-success"><i class="fas fa-check"></i> Mark as Delivered </button>
+                                            <button type="submit" class="btn btn-sm btn-success"><i class="fas fa-check"></i> Đã giao hàng</button>
                                         </form>
                                     </td>
                                 </tr>
@@ -102,11 +102,11 @@
                                     <tr>
                                         <th>#</th>
                                         <th>Image</th>
-                                        <th>Name</th>
-                                        <th>Quantity</th>
-                                        <th>Address</th>
-                                        <th>Processed Date</th>
-                                        <th>Delivered Date</th>
+                                        <th>Tên sản phẩm</th>
+                                        <th>Số lượng</th>
+                                        <th>Địa chỉ</th>
+                                        <th>Ngày xử lý</th>
+                                        <th>Ngày giao</th>
                                     </tr>
                                     </thead>
                                     <tbody id="items">

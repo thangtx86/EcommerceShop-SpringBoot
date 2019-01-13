@@ -24,6 +24,8 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+
+import java.io.UnsupportedEncodingException;
 import java.util.Optional;
 
 /**
@@ -64,30 +66,41 @@ public class UserController {
 	
 	@InitBinder("registerForm")
 	public void registerFormInitBinder(WebDataBinder binder) {
+	
 		binder.addValidators(userCreateFormValidator);
 	}
 
 
-	@RequestMapping(value = "/login", method = RequestMethod.GET)
+	@RequestMapping(value = "/login", method = RequestMethod.GET,produces = "text/plain;charset=UTF-8")
 	public ModelAndView getLoginPage(@RequestParam Optional<String> error) {
 		return new ModelAndView("user/login", "error", error.isPresent() ? error : null);
 	}
 
 	//@PreAuthorize("@currentUserServiceImpl.canAccessUser(principal, #pathVariable)")
 	//@PreAuthorize("hasAuthority('ADMIN')")
-	@RequestMapping(value = "/register", method = RequestMethod.GET)
+	@RequestMapping(value = "/register", method = RequestMethod.GET,produces = "text/plain;charset=UTF-8")
 	public ModelAndView register(@ModelAttribute("registerForm") UserCreateForm registerForm) {
 		return new ModelAndView("user/register", "registerForm", registerForm);
 	}
 
 	//@PreAuthorize("hasAuthority('ADMIN')")
-	@RequestMapping(value = "/register", method = RequestMethod.POST)
+	@RequestMapping(value = "/register", method = RequestMethod.POST,produces = "text/plain;charset=UTF-8")
 	public ModelAndView register(@Valid @ModelAttribute("registerForm") UserCreateForm registerForm, BindingResult bindingResult, HttpServletRequest request, RedirectAttributes redirectAttributes) {
+		try {
+			request.setCharacterEncoding("utf-8");
+		} catch (UnsupportedEncodingException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		if (bindingResult.hasErrors())
 			return new ModelAndView("user/register", "registerForm", registerForm);
-
+	
+		/*registerForm.setName("Hoàng Anh Gia Lài");*/
+		System.out.println("------------------------------------------");
+		System.out.println(registerForm.getName());
+		System.out.println("------------------------------------------");
 		userService.register(registerForm);
-
+	
 		try {
 			request.changeSessionId();
 			request.login(registerForm.getUsername(), registerForm.getPassword());

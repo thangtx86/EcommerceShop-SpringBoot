@@ -26,27 +26,23 @@ import java.util.List;
 */
 
 public class AuthUtil {
-	//Only use it in non controller context!
+	
 	public static CurrentUser getCurrentUser(){
 		return (CurrentUser)SecurityContextHolder.getContext().getAuthentication().getPrincipal();
 	}
 
 	public static void addRoleAtRuntime(Role role){
-		//Add Role at Runtime!
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 		List<GrantedAuthority> updatedAuthorities = new ArrayList<>(auth.getAuthorities());
 
 		if(updatedAuthorities.contains(new SimpleGrantedAuthority(role.name())))
 			return;
 
-		//Add it in List
 		updatedAuthorities.add(new SimpleGrantedAuthority(role.name()));
 
-		//Add it in Session User
 		CurrentUser updatedUser = getCurrentUser();
 		updatedUser.getRole().add(role);
 
-		//Update da kolo ba2a
 		Authentication newAuth = new PreAuthenticatedAuthenticationToken(updatedUser, auth.getCredentials(), updatedAuthorities);
 		SecurityContextHolder.getContext().setAuthentication(newAuth);
 	}
@@ -54,11 +50,9 @@ public class AuthUtil {
 	public static void updateOrders(Integer newCount){
 		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
 
-		//Add it in Session User
 		CurrentUser updatedUser = getCurrentUser();
 		updatedUser.setOrdersCount(newCount);
 
-		//Update da kolo ba2a
 		Authentication newAuth = new PreAuthenticatedAuthenticationToken(updatedUser, auth.getCredentials(), auth.getAuthorities());
 		SecurityContextHolder.getContext().setAuthentication(newAuth);
 	}

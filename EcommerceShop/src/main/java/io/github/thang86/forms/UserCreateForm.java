@@ -33,7 +33,7 @@ public class UserCreateForm {
 	private String email = "";
 
 	@NotEmpty
-	@Length(min = 2, max = 120, message = "Password must be greater than or equal 6 characters.")
+	@Length(min = 2, max = 120, message = "Mật khẩu phải lớn hơn hoặc bằng 6 kí tựeng.")
 	private String password = "";
 
 	@NotEmpty

@@ -49,7 +49,6 @@ public class RemoveCollaboratorFormValidator implements Validator {
     public void validate(Object target, Errors errors) {
         AddStoreCollaboratorForm form = (AddStoreCollaboratorForm) target;
 
-        //Avoid Querying DB if there is an error already.
         if(errors.hasErrors())
             return;
 
@@ -70,7 +69,7 @@ public class RemoveCollaboratorFormValidator implements Validator {
 
         CurrentUser currentUser = AuthUtil.getCurrentUser();
         if(!authService.canAccessStore(store, currentUser)) {
-            errors.rejectValue("storeId", "Unauthorized!!!!");
+            errors.rejectValue("storeId", "Không được phép!!!!");
             return;
         }
         if(user.getId()==currentUser.getUser().getId()) {
