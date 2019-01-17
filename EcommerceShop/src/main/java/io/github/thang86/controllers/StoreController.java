@@ -272,7 +272,7 @@ public class StoreController {
 
 		AuthUtil.updateOrders(currentUser.getOrdersCount() + 1);
 
-		FlashMessages.success(product.get().getProduct().getName() + " đã được thêm vào giở hàng", redirectAttributes);
+		FlashMessages.success(product.get().getProduct().getName() + " đã được thêm vào giỏ hàng", redirectAttributes);
 		return new ModelAndView("redirect:/");
 	}
 

@@ -90,7 +90,7 @@ public class UserController {
 		if (bindingResult.hasErrors())
 			return new ModelAndView("user/register", "registerForm", registerForm);
 	
-		/*registerForm.setName("Hoàng Anh Gia Lài");*/
+		/*registerForm.setName("Trần Xuân Thắng");*/
 		System.out.println("------------------------------------------");
 		System.out.println(registerForm.getName());
 		System.out.println("------------------------------------------");

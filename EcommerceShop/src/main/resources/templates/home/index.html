@@ -29,7 +29,7 @@
                       action="/search">
                     <div class="col-lg-8 container">
                         <div class="input-group" id="remote">
-                            <input type="text" name="q" class="typeahead form-control search-form" placeholder="Search"
+                            <input type="text" name="q" class="typeahead form-control search-form" placeholder="Tìm kiếm..."
                                    value="" autofocus="autofocus"/>
                             <span class="input-group-btn">
                             <button style="position:  absolute;" type="submit" class="btn btn-primary search-btn"
@@ -60,7 +60,7 @@
                             <br/>
                             <h5 class="card-title"><a th:text="${product.name}">-</a></h5>
                             <h6 class="card-subtitle mb-2 text-muted"
-                                th:text="${#strings.abbreviate(product.description,100)}">Description</h6>
+                                th:text="${#strings.abbreviate(product.description,100)}">Mô tả</h6>
                             <h6 class="text-muted float-left">
                                 <small>Cửa hàng: <a th:href="@{/store/view/{id}(id = ${product.store.id})}"
                                                  th:text="${product.store.name}"></a></small>

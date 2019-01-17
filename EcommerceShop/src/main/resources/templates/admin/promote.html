@@ -18,7 +18,7 @@
     <br/>
     <br/>
     <h2 class="nopadding"><i class="fas fa-arrow-alt-circle-up"></i> Thêm người quản trị!</h2>
-    <h6 class="text-warning"> <i class="fas fa-exclamation-triangle"></i> Be careful, the user selected will have admin authorities.</h6>
+    <h6 class="text-warning"> <i class="fas fa-exclamation-triangle"></i> Khi nhấn nút thêm người dùng sẽ trở thành quản trị viên.</h6>
     <hr/>
     <form method="post" autocomplete="on" th:object="${promoteAdminForm}" action="/admin/promote">
         <div class="row">
@@ -28,7 +28,7 @@
 
                 <div class="form-group">
                     <label class="col-form-label">Tên đăng nhập</label>
-                    <input type="text" th:errorclass="is-invalid" class="form-control" placeholder="Username"
+                    <input type="text" th:errorclass="is-invalid" class="form-control" placeholder="Tên đăng nhập..."
                            th:field="*{username}"/>
                     <div class="invalid-feedback" th:if="${#fields.hasErrors('username')}"
                          th:errors="*{username}">Unspecified Error
@@ -36,7 +36,7 @@
                 </div>
 
                 <br/>
-                <button type="submit" class="btn btn-primary">Thêm!</button>
+                <button type="submit" class="btn btn-primary">Thêm </button>
             </div>
         </div>
     </form>

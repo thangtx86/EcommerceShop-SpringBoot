@@ -42,7 +42,7 @@
                             </div>
                         </div>
                         <br/>
-                        <button type="submit" class="btn btn-danger">Xóa!</button>
+                        <button type="submit" class="btn btn-danger">Xóa</button>
                     </div>
                 </div>
             </form>
@@ -57,7 +57,7 @@
                         <div class="form-group">
                             <label class="col-form-label">Tên đăng nhập</label>
                             <input type="text" th:errorclass="is-invalid" class="form-control"
-                                   placeholder="Username"
+                                   placeholder="Tên đăng nhập"
                                    th:field="*{username}"/>
                             <div class="invalid-feedback" th:if="${#fields.hasErrors('username')}"
                                  th:errors="*{username}">Unspecified Error
